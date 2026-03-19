@@ -15,7 +15,7 @@ export async function POST(request: Request) {
     await resend.emails.send({
       from: 'AIR Lab Contact Form <onboarding@resend.dev>',
       to: CONTACT_EMAIL,
-      replyTo: email,
+      reply_to: email,
       subject: `New enquiry from ${name}${organization ? ` — ${organization}` : ''}`,
       text: [
         `Name: ${name}`,
