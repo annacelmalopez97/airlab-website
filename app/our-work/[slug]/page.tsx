@@ -33,7 +33,6 @@ export default async function InitiativePage({ params }: { params: Promise<Param
 
   return (
     <>
-      {/* HERO */}
       <section className="relative min-h-[60vh] flex items-end bg-charcoal pt-16">
         <Image
           src={urlFor(initiative.coverImage).width(2000).height(1000).url()}
@@ -56,7 +55,6 @@ export default async function InitiativePage({ params }: { params: Promise<Param
         </div>
       </section>
 
-      {/* BODY */}
       <section className="section-light">
         <div className="container-inner">
           <div className="max-w-3xl mx-auto">
@@ -64,14 +62,14 @@ export default async function InitiativePage({ params }: { params: Promise<Param
 
             {initiative.partnerOrganizations && (
               <div className="mt-10 pt-8 border-t border-charcoal/10">
-                <p className="font-ui text-xs font-medium uppercase tracking-widest text-teal mb-3">Partner Organizations</p>
+                <p className="atm-label text-teal mb-3">Partner Organizations</p>
                 <p className="text-charcoal/70">{initiative.partnerOrganizations}</p>
               </div>
             )}
 
             {initiative.publicationsAndLinks && initiative.publicationsAndLinks.length > 0 && (
               <div className="mt-8 pt-8 border-t border-charcoal/10">
-                <p className="font-ui text-xs font-medium uppercase tracking-widest text-teal mb-4">Publications & Links</p>
+                <p className="atm-label text-teal mb-4">Publications & Links</p>
                 <PortableTextContent value={initiative.publicationsAndLinks} />
               </div>
             )}

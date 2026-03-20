@@ -17,7 +17,7 @@ export default async function NewsPage() {
       <HeroDark
         title="News & Insights"
         subtitle="The latest from AIR Lab — research updates, events, and perspectives on the future of Air Traffic Management."
-        backgroundImageUrl="https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?w=2000&q=80"
+        showBlueprint
       />
 
       <section className="section-light">
