@@ -1,47 +1,56 @@
-import Link from 'next/link'
 import Image from 'next/image'
-import { urlFor } from '@/sanity/image'
+import Link from 'next/link'
+import { client } from '@/sanity/client'
+import imageUrlBuilder from '@sanity/image-url'
+import type { SanityImageSource } from '@sanity/image-url/lib/types/types'
+
+const builder = imageUrlBuilder(client)
+function urlFor(source: SanityImageSource) {
+  return builder.image(source)
+}
+
+const statusColors: Record<string, string> = {
+  Active: 'bg-teal/10 border-teal/25 text-teal',
+  Upcoming: 'bg-white/10 border-white/20 text-white/60',
+  Completed: 'bg-white/5 border-white/10 text-white/40',
+}
+
+const statusDots: Record<string, string> = {
+  Active: 'bg-teal',
+  Upcoming: 'bg-white/50',
+  Completed: 'bg-white/30',
+}
 
 interface InitiativeCardProps {
   title: string
   slug: string
   shortDescription: string
   status: string
-  coverImage: object
-}
-
-const statusColors: Record<string, string> = {
-  Active: 'bg-teal/20 text-teal',
-  Completed: 'bg-white/20 text-white/70',
-  Upcoming: 'bg-teal-dark/20 text-teal-dark',
+  coverImage: SanityImageSource
 }
 
 export default function InitiativeCard({ title, slug, shortDescription, status, coverImage }: InitiativeCardProps) {
   return (
-    <Link
-      href={`/our-work/${slug}`}
-      className="group block bg-white/5 hover:bg-white/10 border border-white/10 hover:border-teal/40 rounded-xl overflow-hidden transition-all duration-300"
-    >
-      <div className="relative h-48 overflow-hidden">
-        <Image
-          src={urlFor(coverImage).width(600).height(400).url()}
-          alt={title}
-          fill
-          className="object-cover group-hover:scale-105 transition-transform duration-500"
-        />
-        <div className="absolute inset-0 bg-charcoal/40" />
-        <span className={`absolute top-3 left-3 tag ${statusColors[status] ?? 'bg-white/10 text-white'}`}>
-          {status}
-        </span>
+    <Link href={`/our-work/${slug}`} className="group block bg-surface rounded-xl overflow-hidden hover:ring-1 hover:ring-teal/30 transition-all duration-300">
+      <div className="relative h-44 bg-hero-bg">
+        {coverImage && (
+          <Image
+            src={urlFor(coverImage).width(600).height(350).url()}
+            alt={title}
+            fill
+            className="object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+          />
+        )}
       </div>
-      <div className="p-6">
-        <h3 className="font-display font-bold text-lg text-white group-hover:text-teal transition-colors duration-200">
+      <div className="p-5">
+        <div className={`inline-flex items-center gap-1.5 border rounded px-2 py-0.5 mb-3 ${statusColors[status] ?? statusColors.Active}`}>
+          <span className={`w-1.5 h-1.5 rounded-full ${statusDots[status] ?? statusDots.Active}`} />
+          <span className="atm-label text-[10px]">{status.toUpperCase()}</span>
+        </div>
+        <h3 className="font-display font-bold text-white text-base leading-snug mb-2 group-hover:text-teal transition-colors">
           {title}
         </h3>
-        <p className="mt-2 text-white/65 text-sm leading-relaxed line-clamp-3">{shortDescription}</p>
-        <span className="mt-4 inline-flex items-center text-teal text-sm font-ui font-medium gap-1 group-hover:gap-2 transition-all duration-200">
-          Learn more <span>→</span>
-        </span>
+        <p className="text-white/50 text-sm leading-relaxed line-clamp-3">{shortDescription}</p>
       </div>
     </Link>
   )
