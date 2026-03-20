@@ -1,60 +1,76 @@
-import Image from 'next/image'
+import BlueprintGrid from './BlueprintGrid'
 
 interface HeroDarkProps {
   title: string
   subtitle?: string
-  ctaLabel?: string
-  ctaHref?: string
   backgroundImageUrl?: string
-  size?: 'large' | 'medium'
+  videoUrl?: string
+  overlayOpacity?: number // 0–100, default 75
+  size?: 'default' | 'full'
+  showBlueprint?: boolean
 }
 
 export default function HeroDark({
   title,
   subtitle,
-  ctaLabel,
-  ctaHref,
   backgroundImageUrl,
-  size = 'medium',
+  videoUrl,
+  overlayOpacity = 75,
+  size = 'default',
+  showBlueprint = false,
 }: HeroDarkProps) {
-  const heightClass = size === 'large' ? 'min-h-[90vh]' : 'min-h-[50vh]'
+  const heightClass = size === 'full' ? 'min-h-screen' : 'min-h-[60vh]'
 
   return (
-    <section className={`relative flex items-center bg-charcoal ${heightClass} pt-16`}>
-      {/* Background image with overlay */}
-      {backgroundImageUrl && (
-        <>
-          <Image
-            src={backgroundImageUrl}
-            alt=""
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-charcoal/75" />
-        </>
+    <section className={`relative ${heightClass} flex items-center bg-hero-bg pt-16`}>
+      {/* Background video */}
+      {videoUrl && (
+        <video
+          src={videoUrl}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        />
       )}
 
-      {/* Teal accent line */}
-      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-teal to-teal-dark" />
+      {/* Background image */}
+      {!videoUrl && backgroundImageUrl && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={backgroundImageUrl}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+      )}
 
-      <div className="container-inner relative z-10 py-16">
-        <div className="max-w-3xl">
-          <div className="w-12 h-1 bg-teal mb-6" />
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white leading-tight">
-            {title}
-          </h1>
-          {subtitle && (
-            <p className="mt-6 text-lg md:text-xl text-white/75 leading-relaxed max-w-2xl">
-              {subtitle}
-            </p>
-          )}
-          {ctaLabel && ctaHref && (
-            <a href={ctaHref} className="btn-primary mt-8 inline-block">
-              {ctaLabel}
-            </a>
-          )}
-        </div>
+      {/* Overlay */}
+      {(videoUrl || backgroundImageUrl) && (
+        <div
+          className="absolute inset-0 bg-charcoal"
+          style={{ opacity: overlayOpacity / 100 }}
+        />
+      )}
+
+      {/* Blueprint grid — only on pure dark hero (no video/image) */}
+      {showBlueprint && !videoUrl && !backgroundImageUrl && (
+        <BlueprintGrid opacity={10} />
+      )}
+
+      {/* Bottom teal divider */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-teal to-transparent" />
+
+      {/* Content */}
+      <div className="container-inner relative z-10">
+        <h1 className="text-4xl md:text-6xl font-display font-bold text-white leading-tight max-w-4xl">
+          {title}
+        </h1>
+        {subtitle && (
+          <p className="mt-6 text-white/60 text-lg md:text-xl max-w-2xl leading-relaxed">
+            {subtitle}
+          </p>
+        )}
       </div>
     </section>
   )

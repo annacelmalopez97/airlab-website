@@ -7,8 +7,7 @@ const links = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About' },
   { href: '/our-work', label: 'Our Work' },
-  { href: '/team', label: 'Team' },
-  { href: '/partners', label: 'Partners' },
+  { href: '/rcp', label: 'RCP' },
   { href: '/news', label: 'News & Insights' },
 ]
 
@@ -34,39 +33,46 @@ export default function Nav() {
               {l.label}
             </Link>
           ))}
-          <Link href="/contact" className="btn-primary">
-            Contact
-          </Link>
         </nav>
 
-        {/* Mobile menu button */}
+        {/* Contact CTA */}
+        <Link href="/contact" className="hidden md:block btn-primary text-sm py-2 px-4">
+          Contact
+        </Link>
+
+        {/* Mobile hamburger */}
         <button
-          className="md:hidden text-white p-2"
+          className="md:hidden text-white/80 hover:text-white p-2"
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
         >
-          <div className="w-5 h-0.5 bg-current mb-1" />
-          <div className="w-5 h-0.5 bg-current mb-1" />
-          <div className="w-5 h-0.5 bg-current" />
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {open
+              ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            }
+          </svg>
         </button>
       </div>
 
-      {/* Mobile nav */}
+      {/* Mobile menu */}
       {open && (
-        <div className="md:hidden bg-charcoal border-t border-white/10 px-4 py-4 flex flex-col gap-4">
-          {links.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className="font-ui text-sm font-medium text-white/80 hover:text-teal transition-colors"
-              onClick={() => setOpen(false)}
-            >
-              {l.label}
+        <div className="md:hidden border-t border-white/10 bg-charcoal">
+          <div className="container-inner py-4 flex flex-col gap-4">
+            {links.map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                className="font-ui text-sm font-medium text-white/80 hover:text-teal transition-colors duration-200"
+                onClick={() => setOpen(false)}
+              >
+                {l.label}
+              </Link>
+            ))}
+            <Link href="/contact" className="btn-primary text-sm py-2 px-4 text-center mt-2" onClick={() => setOpen(false)}>
+              Contact
             </Link>
-          ))}
-          <Link href="/contact" className="btn-primary text-center" onClick={() => setOpen(false)}>
-            Contact
-          </Link>
+          </div>
         </div>
       )}
     </header>

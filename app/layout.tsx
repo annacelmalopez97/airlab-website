@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Red_Hat_Display, Red_Hat_Text, Poppins } from 'next/font/google'
+import { Red_Hat_Display, Red_Hat_Text, Poppins, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
@@ -23,6 +23,12 @@ const poppins = Poppins({
   display: 'swap',
 })
 
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-jetbrains-mono',
+  display: 'swap',
+})
+
 export const metadata: Metadata = {
   title: {
     default: 'AIR Lab Singapore',
@@ -40,7 +46,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${redHatDisplay.variable} ${redHatText.variable} ${poppins.variable}`}>
+    <html lang="en" className={`${redHatDisplay.variable} ${redHatText.variable} ${poppins.variable} ${jetbrainsMono.variable}`}>
       <body>
         <Nav />
         <main>{children}</main>

@@ -21,14 +21,13 @@ export default async function OurWorkPage() {
       <HeroDark
         title="Our Work"
         subtitle="Discover the initiatives and research projects driving innovation in Air Traffic Management at AIR Lab Singapore."
-        backgroundImageUrl="https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=2000&q=80"
+        showBlueprint
       />
 
-      {/* ACTIVE */}
       {active.length > 0 && (
         <section className="section-dark">
           <div className="container-inner">
-            <p className="font-ui text-xs font-medium uppercase tracking-widest text-teal mb-8">Active Initiatives</p>
+            <p className="atm-label text-teal mb-8">Active Initiatives</p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {active.map((i: Parameters<typeof InitiativeCard>[0] & { _id: string }) => (
                 <InitiativeCard key={i._id} {...i} />
@@ -38,11 +37,10 @@ export default async function OurWorkPage() {
         </section>
       )}
 
-      {/* UPCOMING */}
       {upcoming.length > 0 && (
         <section className="section-light">
           <div className="container-inner">
-            <p className="font-ui text-xs font-medium uppercase tracking-widest text-teal-dark mb-8">Upcoming</p>
+            <p className="atm-label text-teal-dark mb-8">Upcoming</p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {upcoming.map((i: Parameters<typeof InitiativeCard>[0] & { _id: string }) => (
                 <InitiativeCard key={i._id} {...i} />
@@ -52,11 +50,10 @@ export default async function OurWorkPage() {
         </section>
       )}
 
-      {/* COMPLETED */}
       {completed.length > 0 && (
         <section className={upcoming.length > 0 ? 'section-white border-t border-charcoal/5' : 'section-light'}>
           <div className="container-inner">
-            <p className="font-ui text-xs font-medium uppercase tracking-widest text-charcoal/40 mb-8">Completed</p>
+            <p className="atm-label text-charcoal/40 mb-8">Completed</p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {completed.map((i: Parameters<typeof InitiativeCard>[0] & { _id: string }) => (
                 <InitiativeCard key={i._id} {...i} />

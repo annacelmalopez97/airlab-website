@@ -28,7 +28,6 @@ export default async function NewsPostPage({ params }: { params: Promise<Params>
 
   return (
     <>
-      {/* HERO */}
       <section className="relative min-h-[55vh] flex items-end bg-charcoal pt-16">
         <Image
           src={urlFor(post.mainImage).width(2000).height(900).url()}
@@ -43,10 +42,10 @@ export default async function NewsPostPage({ params }: { params: Promise<Params>
         <div className="container-inner relative z-10 pb-12">
           <div className="flex items-center gap-3 mb-4">
             <span className="tag bg-teal/20 text-teal border border-teal/30 font-ui">{post.category}</span>
-            <span className="text-white/50 font-ui text-xs">
+            <span className="atm-label text-white/50">
               {new Date(post.publishedAt).toLocaleDateString('en-SG', { day: 'numeric', month: 'long', year: 'numeric' })}
             </span>
-            {post.author && <span className="text-white/50 font-ui text-xs">by {post.author}</span>}
+            {post.author && <span className="atm-label text-white/50">by {post.author}</span>}
           </div>
           <h1 className="text-3xl md:text-5xl font-display font-bold text-white leading-tight max-w-4xl">
             {post.title}
@@ -54,7 +53,6 @@ export default async function NewsPostPage({ params }: { params: Promise<Params>
         </div>
       </section>
 
-      {/* BODY */}
       <section className="section-light">
         <div className="container-inner">
           <div className="max-w-3xl mx-auto">
