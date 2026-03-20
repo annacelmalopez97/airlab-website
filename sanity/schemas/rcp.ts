@@ -4,6 +4,8 @@ export default defineType({
   name: 'rcp',
   title: 'RCP Page',
   type: 'document',
+  // @ts-expect-error __experimental_actions is used for singleton pattern
+  __experimental_actions: ['update', 'publish'],
   fields: [
     defineField({ name: 'heroVideoUrl', type: 'url', title: 'Hero Background Video URL' }),
     defineField({ name: 'explainerVideoUrl', type: 'url', title: 'Explainer Video URL (YouTube/Vimeo embed)' }),
