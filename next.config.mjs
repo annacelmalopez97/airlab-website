@@ -6,6 +6,15 @@ const nextConfig = {
       { protocol: 'https', hostname: 'images.unsplash.com' },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/regional-collaboration-platform',
+        destination: '/our-work/regional-collaboration-platform',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 export default nextConfig
