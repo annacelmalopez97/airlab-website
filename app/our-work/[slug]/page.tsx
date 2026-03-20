@@ -34,13 +34,15 @@ export default async function InitiativePage({ params }: { params: Promise<Param
   return (
     <>
       <section className="relative min-h-[60vh] flex items-end bg-charcoal pt-16">
-        <Image
-          src={urlFor(initiative.coverImage).width(2000).height(1000).url()}
-          alt={initiative.title}
-          fill
-          className="object-cover"
-          priority
-        />
+        {initiative.coverImage && (
+          <Image
+            src={urlFor(initiative.coverImage).width(2000).height(1000).url()}
+            alt={initiative.title}
+            fill
+            className="object-cover"
+            priority
+          />
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/70 to-charcoal/30" />
         <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-teal to-teal-dark" />
 

@@ -22,16 +22,20 @@ export default function PartnerGridInstitutional({ partners }: Props) {
   return (
     <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-4">
       {partners.map((p) => {
-        const logoUrl = builder.image(p.logo).width(200).height(80).fit('max').url()
+        const logoUrl = p.logo ? builder.image(p.logo).width(200).height(80).fit('max').url() : null
         const content = (
           <div className="bg-white/5 border border-white/8 rounded-lg p-4 h-16 flex items-center justify-center hover:border-teal/20 transition-colors">
-            <Image
-              src={logoUrl}
-              alt={p.name}
-              width={120}
-              height={48}
-              className="object-contain max-h-10 opacity-70 hover:opacity-100 transition-opacity"
-            />
+            {logoUrl ? (
+              <Image
+                src={logoUrl}
+                alt={p.name}
+                width={120}
+                height={48}
+                className="object-contain max-h-10 opacity-70 hover:opacity-100 transition-opacity"
+              />
+            ) : (
+              <span className="atm-label text-white/40 text-[9px]">{p.name}</span>
+            )}
           </div>
         )
         return p.websiteUrl ? (

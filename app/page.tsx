@@ -180,7 +180,10 @@ export default async function HomePage() {
             <p className="text-center atm-label text-charcoal/40 mb-10">PARTNERS & COLLABORATORS</p>
             <div className="flex flex-wrap gap-4 justify-center items-center">
               {(partners as { _id: string; name: string; logo: SanityImageSource; websiteUrl?: string }[]).map((p) => {
-                const logoUrl = builder.image(p.logo).width(160).height(64).fit('max').url()
+                const logoUrl = p.logo ? builder.image(p.logo).width(160).height(64).fit('max').url() : null
+                if (!logoUrl) return (
+                  <div key={p._id} className="opacity-50 px-3 py-2 text-charcoal/60 text-xs font-ui">{p.name}</div>
+                )
                 return p.websiteUrl ? (
                   <a key={p._id} href={p.websiteUrl} target="_blank" rel="noopener noreferrer"
                     className="opacity-50 hover:opacity-100 transition-opacity">
