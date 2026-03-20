@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { client } from '@/sanity/client'
-import { teamQuery, aboutPartnersQuery } from '@/sanity/queries'
+import { teamQuery, aboutInstitutionalPartnersQuery, aboutStartupPartnersQuery } from '@/sanity/queries'
 import HeroDark from '@/components/HeroDark'
 import TeamCard from '@/components/TeamCard'
 import PartnerGrid from '@/components/PartnerGrid'
@@ -11,10 +11,13 @@ export const metadata: Metadata = {
 }
 
 export default async function AboutPage() {
-  const [team, partners] = await Promise.all([
+  const [team, institutionalPartners, startupPartners] = await Promise.all([
     client.fetch(teamQuery),
-    client.fetch(aboutPartnersQuery),
+    client.fetch(aboutInstitutionalPartnersQuery),
+    client.fetch(aboutStartupPartnersQuery),
   ])
+
+  const partners = [...institutionalPartners, ...startupPartners]
 
   return (
     <>

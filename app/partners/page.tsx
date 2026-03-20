@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import { client } from '@/sanity/client'
-import { aboutPartnersQuery, homePartnersQuery } from '@/sanity/queries'
+import { homePartnersQuery } from '@/sanity/queries'
 import HeroDark from '@/components/HeroDark'
 import { urlFor } from '@/sanity/image'
 
@@ -18,19 +18,7 @@ interface Partner {
 }
 
 export default async function PartnersPage() {
-  const [homePartners, aboutPartners] = await Promise.all([
-    client.fetch(homePartnersQuery),
-    client.fetch(aboutPartnersQuery),
-  ])
-
-  // Merge and deduplicate all partners
-  const allPartners: Partner[] = [...homePartners, ...aboutPartners].reduce(
-    (acc: Partner[], partner: Partner) => {
-      if (!acc.find((p) => p._id === partner._id)) acc.push(partner)
-      return acc
-    },
-    []
-  )
+  const allPartners = await client.fetch(homePartnersQuery)
 
   return (
     <>
@@ -44,7 +32,7 @@ export default async function PartnersPage() {
         <div className="container-inner">
           {allPartners.length > 0 ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8">
-              {allPartners.map((partner) => {
+              {allPartners.map((partner: Partner) => {
                 const card = (
                   <div className="bg-white rounded-xl p-6 shadow-sm border border-charcoal/5 flex flex-col items-center justify-center gap-4 hover:shadow-md transition-shadow duration-300 aspect-square">
                     <div className="relative w-full h-16">

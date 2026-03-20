@@ -13,6 +13,9 @@ export const initiativeBySlugQuery = `*[_type == "initiative" && slug.current ==
   _id, title, shortDescription, status, coverImage, body, partnerOrganizations, publicationsAndLinks
 }`
 
+// Initiative slugs for QuickAccessChips (checks existence)
+export const initiativeSlugsQuery = `*[_type == "initiative"] { "slug": slug.current }`
+
 // Home page — 3 latest news posts
 export const latestNewsQuery = `*[_type == "newsPost"] | order(publishedAt desc)[0...3] {
   _id, title, "slug": slug.current, publishedAt, category, mainImage, excerpt, externalLink
@@ -33,12 +36,25 @@ export const teamQuery = `*[_type == "teamMember"] | order(order asc) {
   _id, name, role, photo, bio, linkedIn
 }`
 
-// Partners for Home
-export const homePartnersQuery = `*[_type == "partner" && (showOn == "Home" || showOn == "Both")] | order(order asc) {
+// Partners for Home (all tiers, ordered)
+export const homePartnersQuery = `*[_type == "partner"] | order(order asc) {
+  _id, name, logo, websiteUrl, tier
+}`
+
+// Institutional partners for About (tier 1)
+export const aboutInstitutionalPartnersQuery = `*[_type == "partner" && tier == "institutional"] | order(order asc) {
   _id, name, logo, websiteUrl
 }`
 
-// Partners for About
-export const aboutPartnersQuery = `*[_type == "partner" && (showOn == "About" || showOn == "Both")] | order(order asc) {
-  _id, name, logo, websiteUrl
+// Startup partners for About (tier 2)
+export const aboutStartupPartnersQuery = `*[_type == "partner" && tier == "startup"] | order(order asc) {
+  _id, name, logo, websiteUrl, description, categoryTag
+}`
+
+// RCP singleton
+export const rcpQuery = `*[_type == "rcp"][0] {
+  heroVideoUrl, explainerVideoUrl,
+  timelineItems[] { phase, title, body, isCurrent },
+  useCaseImages[] { image, caption, altText, order },
+  resources[] { label, url, type }
 }`
