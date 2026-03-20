@@ -21,6 +21,11 @@
     @apply inline-block bg-teal hover:bg-teal-dark text-white font-ui font-medium text-sm px-6 py-3 rounded transition-colors duration-200;
   }
 
+  /* Used on dark hero sections where teal bg needs dark text */
+  .btn-primary-dark {
+    @apply inline-block bg-teal hover:bg-teal-dark text-hero-bg font-ui font-medium text-sm px-6 py-3 rounded transition-colors duration-200;
+  }
+
   .btn-outline {
     @apply inline-block border-2 border-teal text-teal hover:bg-teal hover:text-white font-ui font-medium text-sm px-6 py-3 rounded transition-colors duration-200;
   }
@@ -33,6 +38,10 @@
     @apply bg-charcoal py-16 md:py-24;
   }
 
+  .section-hero {
+    @apply bg-hero-bg py-16 md:py-24;
+  }
+
   .section-white {
     @apply bg-white py-16 md:py-24;
   }
@@ -43,5 +52,9 @@
 
   .tag {
     @apply inline-block text-xs font-ui font-medium uppercase tracking-widest px-3 py-1 rounded-full;
+  }
+
+  .atm-label {
+    @apply font-mono text-xs uppercase tracking-widest;
   }
 }
